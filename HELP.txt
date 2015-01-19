@@ -1,0 +1,19 @@
+For now, everything below is a lie.
+--
+todo list                 -> returns a list of numbered entries
+todo add "Investigate why this doesn't work #important"
+todo add <no argument>    -> Multi line text or opens up an editor
+
+todo edit 4               -> opens up an editor
+
+todo remove 5             -> Removes 5 from list
+todo remove <no argument> -> Shows a list of todos and prompts for a number
+todo finish 4             -> Marks 4 as completed
+todo finish <no argument> -> Shows a list of todos and prompts for a number
+
+todo finish all           -> Lists all todos
+todo list completed       -> Lists completed todos
+todo list pending         -> Lists pending todos
+todo count                -> returns number tasks
+todo count pending        -> returns number of pending tasks
+todo count completed      -> returns number of completed tasks
