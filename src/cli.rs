@@ -20,7 +20,8 @@ pub fn delegate(mut path: Path, mut args: Vec<String>) {
 }
 
 fn dispatch(path: Path, action: String, context: Option<String>) {
-    let list = List::new(path);
+    let mut list = List::new(path);
+    list.load();
 
     match action.as_slice() {
         "list"   => list.index(context),

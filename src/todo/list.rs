@@ -1,9 +1,9 @@
 use std::io::fs::PathExtensions;
-use std::io::{File, Open, ReadWrite};
+use std::io::{File, Open, ReadWrite, BufferedReader};
 
 pub struct List {
     file: File,
-    pub entries: String
+    entries: Vec<String>
 }
 
 impl List {
@@ -19,8 +19,19 @@ impl List {
 
         List {
             file: file,
-            entries: "Testing".to_string()
+            entries: vec!()
         }
+    }
+
+    pub fn load(&mut self) {
+        let text = &self.file.read_to_string().unwrap();
+        for line in text.lines() {
+            println!("* {}", line);
+        }
+    }
+
+    pub fn save(&mut self) {
+        &self.file.write("Hi!".as_bytes());
     }
 
     pub fn index(&self, context: Option<String>) {
