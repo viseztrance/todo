@@ -1,16 +1,17 @@
 use std::io::fs::PathExtensions;
-use std::io::{File, Open, ReadWrite, BufferedReader};
+use std::io::{File, Open, ReadWrite};
+use todo::entry::Entry;
 
 pub struct List {
     file: File,
-    entries: Vec<String>
+    entries: Vec<Entry>
 }
 
 impl List {
     pub fn new(path: Path) -> List {
         let file = if path.exists() {
             match File::open_mode(&path, Open, ReadWrite) {
-                Ok(file) => file,
+                Ok(result) => result,
                 Err(reason) => panic!("Couldn't open file `{}` for writing: {}", path.display(), reason.desc)
             }
         } else {
@@ -19,14 +20,16 @@ impl List {
 
         List {
             file: file,
-            entries: vec!()
+            entries: vec![]
         }
     }
 
     pub fn load(&mut self) {
         let text = &self.file.read_to_string().unwrap();
+        let mut i = 0;
         for line in text.lines() {
-            println!("* {}", line);
+            i += 1;
+            &self.entries.push(Entry::new(i, line.to_string()));
         }
     }
 
@@ -35,7 +38,9 @@ impl List {
     }
 
     pub fn index(&self, context: Option<String>) {
-        println!("listing!");
+        for entry in (&self.entries).iter() {
+            println!("({}) {}", entry.id, entry.content);
+        }
     }
 
     pub fn add(&self, context: Option<String>) {

@@ -11,6 +11,7 @@ use std::os;
 mod cli;
 mod todo {
     pub mod list;
+    pub mod entry;
 }
 
 fn main() {
