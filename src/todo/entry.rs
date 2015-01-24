@@ -28,7 +28,7 @@ impl Entry {
         format!("({}) {}", &self.id, &self.content)
     }
 
-    pub fn to_string(&self) -> String {
+    pub fn to_data(&self) -> String {
         let mut buffer = format!("[{}] {}", &self.status, &self.content);
         if (&self.color).is_some() {
             let color = &self.color.clone().unwrap();

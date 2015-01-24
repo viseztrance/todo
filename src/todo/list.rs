@@ -1,28 +1,27 @@
 use std::io::fs::PathExtensions;
-use std::io::{File, Open, ReadWrite};
+use std::io::fs;
+use std::io::File;
 use std::ascii::AsciiExt;
 use todo::entry::Entry;
 
 pub struct List {
-    file: File,
+    path: Path,
     entries: Vec<Entry>
 }
 
 impl List {
     pub fn new(path: Path) -> List {
-        if !path.exists() {
-            File::create(&path).unwrap();
-        }
-        let file = File::open_mode(&path, Open, ReadWrite).unwrap();
-
         List {
-            file: file,
+            path: path,
             entries: vec![]
         }
     }
 
     pub fn load(&mut self) {
-        let text = &self.file.read_to_string().unwrap();
+        if !(&self.path).exists() {
+            &self.touch();
+        }
+        let text = File::open(&self.path).read_to_string().unwrap();
         let mut i = 0;
         for line in text.lines() {
             i += 1;
@@ -32,9 +31,10 @@ impl List {
 
     pub fn save(&mut self) {
         let data = (&self.entries).iter()
-                                  .map(|e| e.to_string())
-                                  .fold(String::new(), |a, b| a + "\n" + b.as_slice());
-        &self.file.write(data.as_bytes());
+                                  .map(|e| e.to_data())
+                                  .fold(String::new(), |a, b| a + b.as_slice() + "\n");
+        fs::unlink(&self.path);
+        &self.touch().write(data.as_bytes());
     }
 
     pub fn index(&self, context: Option<String>) {
@@ -62,6 +62,10 @@ impl List {
     pub fn count(&self, context: Option<String>) {
         let total = (&self.entries).iter().filter(|current| List::filter(current, &context)).count();
         println!("{}", total);
+    }
+
+    fn touch(&self) -> File {
+        File::create(&self.path).unwrap()
     }
 
     fn filter(entry: &&Entry, context: &Option<String>) -> bool {
