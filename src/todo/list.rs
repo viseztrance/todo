@@ -10,14 +10,10 @@ pub struct List {
 
 impl List {
     pub fn new(path: Path) -> List {
-        let file = if path.exists() {
-            match File::open_mode(&path, Open, ReadWrite) {
-                Ok(result) => result,
-                Err(reason) => panic!("Couldn't open file `{}` for writing: {}", path.display(), reason.desc)
-            }
-        } else {
-            File::create(&path).unwrap()
-        };
+        if !path.exists() {
+            File::create(&path).unwrap();
+        }
+        let file = File::open_mode(&path, Open, ReadWrite).unwrap();
 
         List {
             file: file,
