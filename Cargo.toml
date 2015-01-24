@@ -1,5 +1,8 @@
 [package]
-
 name = "todo"
 version = "0.0.1"
 authors = ["Daniel Mircea <daniel@viseztrance.com>"]
+
+[dependencies]
+regex = "0.1.10"
+regex_macros = "0.1.5"
