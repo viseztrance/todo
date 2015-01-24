@@ -13,7 +13,7 @@ pub fn delegate(mut path: Path, mut args: Vec<String>) {
         0 => render_help(),
         1 => dispatch(path, args[0].clone(), None),
         _ => {
-            let (action, context) = process_arguments(args);
+            let (action, context) = parse_arguments(args);
             dispatch(path, action, context);
         }
     }
@@ -34,7 +34,7 @@ fn dispatch(path: Path, action: String, context: Option<String>) {
     }
 }
 
-fn process_arguments(mut args: Vec<String>) -> (String, Option<String>) {
+fn parse_arguments(mut args: Vec<String>) -> (String, Option<String>) {
     let action = args.remove(0);
     let mut context = "".to_string();
     for arg in args.iter() {
