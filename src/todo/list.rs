@@ -31,7 +31,10 @@ impl List {
     }
 
     pub fn save(&mut self) {
-        &self.file.write("Hi!".as_bytes());
+        let data = (&self.entries).iter()
+                                  .map(|e| e.to_string())
+                                  .fold(String::new(), |a, b| a + "\n" + b.as_slice());
+        &self.file.write(data.as_bytes());
     }
 
     pub fn index(&self, context: Option<String>) {

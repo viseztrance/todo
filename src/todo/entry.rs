@@ -27,4 +27,13 @@ impl Entry {
     pub fn display(&self) -> String {
         format!("({}) {}", &self.id, &self.content)
     }
+
+    pub fn to_string(&self) -> String {
+        let mut buffer = format!("[{}] {}", &self.status, &self.content);
+        if (&self.color).is_some() {
+            let color = &self.color.clone().unwrap();
+            buffer.push_str(format!(" #{}", color).as_slice());
+        }
+        buffer
+    }
 }

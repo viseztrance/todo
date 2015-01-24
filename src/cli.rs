@@ -36,7 +36,7 @@ fn dispatch(path: Path, action: String, context: Option<String>) {
 
 fn parse_arguments(mut args: Vec<String>) -> (String, Option<String>) {
     let action = args.remove(0);
-    let mut context = "".to_string();
+    let mut context = String::new();
     for arg in args.iter() {
         context.push_str(arg.as_slice());
     }
