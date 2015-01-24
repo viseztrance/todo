@@ -61,7 +61,8 @@ impl List {
     }
 
     pub fn count(&self, context: Option<String>) {
-        println!("counting!");
+        let total = (&self.entries).iter().filter(|current| List::filter(current, &context)).count();
+        println!("{}", total);
     }
 
     fn filter(entry: &&Entry, context: &Option<String>) -> bool {
