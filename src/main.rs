@@ -1,3 +1,5 @@
+#![allow(unstable)]
+
 #![feature(plugin)]
 #[plugin] #[no_link]
 extern crate regex_macros;
