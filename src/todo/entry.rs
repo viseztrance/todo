@@ -1,5 +1,3 @@
-use regex::Regex;
-
 pub struct Entry {
     id: isize,
     content: String,
