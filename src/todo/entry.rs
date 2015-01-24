@@ -1,8 +1,8 @@
 use regex::Regex;
 
 pub struct Entry {
-    pub id: isize,
-    pub content: String,
+    id: isize,
+    content: String,
     pub status: String,
     pub color: Option<String>
 }
@@ -24,5 +24,9 @@ impl Entry {
             status: status,
             color: color
         }
+    }
+
+    pub fn display(&self) -> String {
+        format!("({}) {}", &self.id, &self.content)
     }
 }

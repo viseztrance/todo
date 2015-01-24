@@ -36,7 +36,7 @@ impl List {
 
     pub fn index(&self, context: Option<String>) {
         for entry in (&self.entries).iter().filter(|current| List::filter(current, &context)) {
-            println!("({}) {}", entry.id, entry.content);
+            println!("{}", entry.display());
         }
     }
 
