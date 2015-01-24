@@ -36,10 +36,10 @@ fn dispatch(path: Path, action: String, context: Option<String>) {
 
 fn parse_arguments(mut args: Vec<String>) -> (String, Option<String>) {
     let action = args.remove(0);
-    let mut context = String::new();
-    for arg in args.iter() {
-        context.push_str(arg.as_slice());
-    }
+    let context = args.iter()
+                      .fold(String::new(), |a, b| a + b.as_slice() + " ")
+                      .trim_right()
+                      .to_string();
     (action, Some(context))
 }
 

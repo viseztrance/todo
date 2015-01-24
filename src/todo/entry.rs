@@ -1,17 +1,17 @@
 pub struct Entry {
-    id: isize,
+    id: usize,
     content: String,
     pub status: String,
     pub color: Option<String>
 }
 
 impl Entry {
-    pub fn new(id: isize, data: String) -> Entry {
-        let expr    = regex!(r"(^\[(\w+)\]? (.*?) ?#?([:xdigit:]+)?$)?");
+    pub fn new(id: usize, data: String) -> Entry {
+        let expr    = regex!(r"(^\[(\w+)\]? (.*?)(\s+)?(#([:xdigit:]+))?$)?");
         let capture = expr.captures(data.as_slice()).unwrap();
         let status  = capture.at(2).unwrap_or("PENDING").to_string();
         let content = capture.at(3).unwrap_or(data.as_slice()).to_string();
-        let color   = match capture.at(4) {
+        let color   = match capture.at(6) {
             Some(val) => Some(val.to_string()),
             None => None
         };

@@ -43,8 +43,15 @@ impl List {
         }
     }
 
-    pub fn add(&self, context: Option<String>) {
-        println!("adding!");
+    pub fn add(&mut self, context: Option<String>) {
+        match context {
+            Some(val) => {
+                let entry = Entry::new((&self.entries).len() + 1, val);
+                &self.entries.push(entry);
+            }
+            None => println!("An editor should open up")
+        }
+        &self.save();
     }
 
     pub fn edit(&self, context: Option<String>) {
