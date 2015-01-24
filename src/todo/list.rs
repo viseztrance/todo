@@ -38,7 +38,7 @@ impl List {
     }
 
     pub fn index(&self, context: Option<String>) {
-        for entry in (&self.entries).iter() {
+        for entry in (&self.entries).iter().filter(|current| List::filter(current, &context)) {
             println!("({}) {}", entry.id, entry.content);
         }
     }
@@ -61,5 +61,11 @@ impl List {
 
     pub fn count(&self, context: Option<String>) {
         println!("counting!");
+    }
+
+    fn filter(entry: &&Entry, context: &Option<String>) -> bool {
+        match context {
+            _ => true
+        }
     }
 }
