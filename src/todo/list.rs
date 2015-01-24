@@ -1,5 +1,6 @@
 use std::io::fs::PathExtensions;
 use std::io::{File, Open, ReadWrite};
+use std::ascii::AsciiExt;
 use todo::entry::Entry;
 
 pub struct List {
@@ -64,8 +65,9 @@ impl List {
     }
 
     fn filter(entry: &&Entry, context: &Option<String>) -> bool {
-        match context {
-            _ => true
+        match context.clone() {
+            Some(val) => val.eq_ignore_ascii_case(entry.status.as_slice()),
+            None => true
         }
     }
 }
