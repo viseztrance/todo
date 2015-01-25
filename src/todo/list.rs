@@ -1,3 +1,4 @@
+use std::io;
 use std::io::fs::PathExtensions;
 use std::io::fs;
 use std::io::File;
@@ -44,14 +45,15 @@ impl List {
     }
 
     pub fn add(&mut self, context: Option<String>) {
-        match context {
-            Some(val) => {
-                let entry = Entry::new((&self.entries).len() + 1, val);
-                &self.entries.push(entry);
+        let content = match context {
+            Some(val) => val,
+            None => {
+                println!("Write a description for your task:");
+                io::stdin().read_line().unwrap()
             }
-            None => println!("An editor should open up")
-        }
-        &self.save();
+        };
+        let entry = Entry::new((&self.entries).len() + 1, content);
+        &self.entries.push(entry);
     }
 
     pub fn edit(&self, context: Option<String>) {
