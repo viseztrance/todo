@@ -1,4 +1,3 @@
-use std::io;
 use std::io::fs::PathExtensions;
 use std::io::fs;
 use std::io::File;
@@ -44,27 +43,24 @@ impl List {
         }
     }
 
-    pub fn add(&mut self, context: Option<String>) {
-        let content = match context {
-            Some(val) => val,
-            None => {
-                println!("Write a description for your task:");
-                io::stdin().read_line().unwrap()
-            }
-        };
+    pub fn add(&mut self, content: String) {
         let entry = Entry::new((&self.entries).len() + 1, content);
         &self.entries.push(entry);
     }
 
-    pub fn edit(&self, context: Option<String>) {
-        println!("editting!");
+    pub fn edit(&mut self, id: usize, content: String) {
+        let mut entry = self.entries.get_mut(id);
+        match entry {
+            Some(val) => val.update(content),
+            None => println!("Entry ({}) was not found.", id)
+        }
     }
 
-    pub fn remove(&self, context: Option<String>) {
+    pub fn remove(&self, context: Vec<usize>) {
         println!("removing!");
     }
 
-    pub fn finish(&self, context: Option<String>) {
+    pub fn finish(&mut self, id: Vec<usize>) {
         println!("finishing!");
     }
 
@@ -79,7 +75,7 @@ impl List {
 
     fn filter(entry: &&Entry, context: &Option<String>) -> bool {
         match context.clone() {
-            Some(val) => val.eq_ignore_ascii_case(entry.status.as_slice()),
+            Some(val) => val.eq_ignore_ascii_case(entry.status.as_slice()) || val.eq_ignore_ascii_case("all"),
             None => true
         }
     }

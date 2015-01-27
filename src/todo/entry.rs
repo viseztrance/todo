@@ -24,6 +24,10 @@ impl Entry {
         }
     }
 
+    pub fn update(&mut self, content: String) {
+        self.content = content;
+    }
+
     pub fn display(&self) -> String {
         format!("({}) {}", &self.id, &self.content)
     }
