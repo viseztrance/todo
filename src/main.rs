@@ -7,6 +7,7 @@ extern crate regex;
 
 use std::os;
 mod cli;
+mod query;
 mod todo {
     pub mod list;
     pub mod entry;
