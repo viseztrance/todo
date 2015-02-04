@@ -10,12 +10,12 @@ impl Query {
     }
 }
 
-struct QueryScope {
+pub struct QueryScope {
     value: Option<Vec<String>>
 }
 
 impl QueryScope {
-    fn new(args: Vec<String>) -> QueryScope {
+    pub fn new(args: Vec<String>) -> QueryScope {
         let value = if args.len() == 0 {
             None
         } else {

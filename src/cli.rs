@@ -1,6 +1,7 @@
 use std::io;
 use todo::list::List;
 use query::Query;
+use query::QueryScope;
 
 pub fn delegate(mut path: Path, mut args: Vec<String>) {
     // First argument contains the program / file name,
@@ -45,9 +46,8 @@ fn dispatch(path: Path, query: Query) {
             let ids = match query.scope.to_vec_int() {
                 Some(val) => val,
                 None => {
-                    let input = read_input("What's the id of the task that you want to edit?");
-                    let parsed_input: Option<usize> = input.parse::<usize>();
-                    vec![parsed_input.unwrap()]
+                    let input = read_input("Enter the ids of the entries you want to remove:");
+                    QueryScope::new(split_string(input)).to_vec_int().unwrap()
                 }
             };
             list.remove(ids);
@@ -57,9 +57,8 @@ fn dispatch(path: Path, query: Query) {
             let ids = match query.scope.to_vec_int() {
                 Some(val) => val,
                 None => {
-                    let input = read_input("What's the id of the task that you want to edit?");
-                    let parsed_input: Option<usize> = input.parse::<usize>();
-                    vec![parsed_input.unwrap()]
+                    let input = read_input("Enter the ids of the entries you want to remove:");
+                    QueryScope::new(split_string(input)).to_vec_int().unwrap()
                 }
             };
             list.finish(ids);
@@ -73,6 +72,12 @@ fn dispatch(path: Path, query: Query) {
 fn read_input(greeting: &str) -> String {
     println!("{}", greeting);
     io::stdin().read_line().unwrap().trim().to_string()
+}
+
+fn split_string(value: String) -> Vec<String> {
+    value.split_str(" ")
+         .map(|s| s.to_string())
+         .collect()
 }
 
 fn render_help() {
