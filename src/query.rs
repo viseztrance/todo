@@ -28,9 +28,9 @@ impl QueryScope {
         match (&self).value.clone() {
             Some(val) => {
                 let parsed_value = val.iter()
-                    .fold(String::new(), |a, b| a + b.as_slice() + " ")
-                    .trim_right()
-                    .to_string();
+                                      .fold(String::new(), |a, b| a + b.as_slice() + " ")
+                                      .trim_right()
+                                      .to_string();
                 Some(parsed_value)
             },
             None => None
@@ -41,8 +41,8 @@ impl QueryScope {
         match (&self).value.clone() {
             Some(val) => {
                 let parsed_value: Vec<usize> = val.iter()
-                    .filter_map(|e| e.parse::<usize>())
-                    .collect();
+                                                  .filter_map(|e| e.parse::<usize>())
+                                                  .collect();
                 if parsed_value.len() > 0 {
                     Some(parsed_value)
                 } else {
