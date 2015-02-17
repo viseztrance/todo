@@ -1,6 +1,6 @@
-use std::io::fs::PathExtensions;
-use std::io::fs;
-use std::io::File;
+use std::old_io::fs::PathExtensions;
+use std::fs;
+use std::old_io::fs::File;
 use std::ascii::AsciiExt;
 use todo::entry::Entry;
 
@@ -33,7 +33,7 @@ impl List {
         let data = (&self.entries).iter()
                                   .map(|e| e.to_data())
                                   .fold(String::new(), |a, b| a + b.as_slice() + "\n");
-        fs::unlink(&self.path);
+        fs::remove_file(&self.path);
         &self.touch().write(data.as_bytes());
     }
 

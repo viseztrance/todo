@@ -1,12 +1,12 @@
 #![allow(unstable)]
 
 #![feature(plugin)]
-#[plugin] #[no_link]
+#![plugin(regex_macros)]
 extern crate regex_macros;
 extern crate regex;
 
 use std::os;
-use std::io;
+use std::old_io;
 use todo::list::List;
 use query::Query;
 use query::QueryScope;
@@ -49,7 +49,7 @@ fn dispatch(path: Path, query: Query) {
                 Some(val) => val[0],
                 None => {
                     let input = read_input("What's the id of the task that you want to edit?");
-                    let parsed_input: Option<usize> = input.parse::<usize>();
+                    let parsed_input: Result<usize, _> = input.parse::<usize>();
                     parsed_input.unwrap()
                 }
             };
@@ -85,7 +85,7 @@ fn dispatch(path: Path, query: Query) {
 
 fn read_input(greeting: &str) -> String {
     println!("{}", greeting);
-    io::stdin().read_line().unwrap().trim().to_string()
+    old_io::stdin().read_line().unwrap().trim().to_string()
 }
 
 fn split_string(value: String) -> Vec<String> {

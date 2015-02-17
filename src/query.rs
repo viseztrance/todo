@@ -41,7 +41,7 @@ impl QueryScope {
         match (&self).value.clone() {
             Some(val) => {
                 let parsed_value: Vec<usize> = val.iter()
-                                                  .filter_map(|e| e.parse::<usize>())
+                                                  .filter_map(|e| e.parse::<usize>().ok())
                                                   .collect();
                 if parsed_value.len() > 0 {
                     Some(parsed_value)
