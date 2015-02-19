@@ -1,6 +1,6 @@
 pub struct Entry {
-    id: usize,
-    content: String,
+    pub id: usize,
+    pub content: String,
     pub status: String,
     pub color: Option<String>
 }

@@ -3,6 +3,10 @@ name = "todo"
 version = "0.0.1"
 authors = ["Daniel Mircea <daniel@viseztrance.com>"]
 
+[lib]
+name = "todo"
+path = "src/main.rs"
+
 [dependencies]
 regex = "0.1.14"
 regex_macros = "0.1.8"

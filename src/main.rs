@@ -12,7 +12,7 @@ use query::Query;
 use query::QueryScope;
 
 mod query;
-mod todo {
+pub mod todo {
     pub mod list;
     pub mod entry;
 }
