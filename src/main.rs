@@ -6,7 +6,7 @@ extern crate regex_macros;
 extern crate regex;
 
 use std::os;
-use std::old_io;
+use std::old_io as io;
 use todo::list::List;
 use query::Query;
 use query::QueryScope;
@@ -85,7 +85,7 @@ fn dispatch(path: Path, query: Query) {
 
 fn read_input(greeting: &str) -> String {
     println!("{}", greeting);
-    old_io::stdin().read_line().unwrap().trim().to_string()
+    io::stdin().read_line().unwrap().trim().to_string()
 }
 
 fn split_string(value: String) -> Vec<String> {
