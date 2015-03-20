@@ -89,7 +89,7 @@ fn read_input(greeting: &str) -> String {
 }
 
 fn split_string(value: String) -> Vec<String> {
-    value.split_str(" ")
+    value.split(" ")
          .map(|s| s.to_string())
          .collect()
 }

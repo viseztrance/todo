@@ -75,7 +75,7 @@ impl List {
 
     fn filter(entry: &&Entry, context: &Option<String>) -> bool {
         match context.clone() {
-            Some(val) => val.eq_ignore_ascii_case(entry.status.as_slice()) || val.eq_ignore_ascii_case("all"),
+            Some(val) => val.eq_ignore_ascii_case(entry.status.to_string().as_slice()) || val.eq_ignore_ascii_case("all"),
             None => true
         }
     }
